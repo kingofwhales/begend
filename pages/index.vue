@@ -1,27 +1,42 @@
 <template>
   <section class="container">
     <div>
-      <logo/>
-      <h1 class="title">
-        begend
-      </h1>
-      <h2 class="subtitle">
-        empty
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-      </div>
+      <h1>Begend</h1>
+      <weather-panel></weather-panel>
+      <air-quality></air-quality>
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import WeatherPanel from '../components/WeatherPanel.vue'
+import AirQuality from '../components/AirQuality.vue'
 
 export default {
+  name: 'index',
   components: {
-    Logo
+    WeatherPanel,
+    AirQuality
+  },
+  methods: {
+    getLocation () {
+      if (navigator.geolocation) {
+        let that = this
+        navigator.geolocation.getCurrentPosition(
+          that.getLocationSuccess,
+          that.getLocationError)
+      }
+    },
+    getLocationSuccess (pos) {
+      let coords = pos.coords
+      this.$store.commit('setPos', coords)
+    },
+    getLocationError (err) {
+      console.log(err)
+    }
+  },
+  created () {
+    this.getLocation()
   }
 }
 </script>
@@ -29,30 +44,7 @@ export default {
 <style>
 .container {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+  padding-top:20px;
 }
 </style>

@@ -1,0 +1,41 @@
+<template>
+  <div>
+    <h1 class='text'>displaying weather</h1>
+  </div>
+</template>
+
+<script>
+  import axios from 'axios'
+
+  export default {
+    name: 'AirQuality',
+    data () {
+      return {
+        pos: {}
+      }
+    },
+    computed: {
+      posLat () {
+        return this.$store.state.pos.lat
+      }
+    },
+    watch: {
+      posLat: function (newPos, oldPos) {
+        console.log('changed')
+        axios.get('https://ciqfzfdgt5.execute-api.us-east-1.amazonaws.com/dev/air')
+          .then(function (response) {
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error)
+          })
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .text {
+    color:black;
+  }
+</style>
