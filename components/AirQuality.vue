@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 class='text'>displaying weather</h1>
+    <div v-if='pm25'>
+      <p>pm2.5: {{pm25}}</p>
+    </div>
+    <div v-else>loading.....</div>
   </div>
 </template>
 
@@ -11,10 +14,7 @@
     name: 'AirQuality',
     data () {
       return {
-        temp: 0,
-        summary: 'n/a',
-        hourly: 0,
-        daily: 0
+        pm25: 0
       }
     },
     computed: {
@@ -24,18 +24,17 @@
     },
     methods: {
       extractData (data) {
-        this.temp = data.currently.temperature
-        this.summary = data.currently.summary
-        this.hourly = data.hourly
-        this.daily = data.daily
+        this.pm25 = data.data.aqi
       }
     },
     watch: {
       posLat: function (newPos, oldPos) {
         console.log('changed')
+        let that = this
         axios.get('https://ciqfzfdgt5.execute-api.us-east-1.amazonaws.com/dev/air')
           .then(function (response) {
             console.log(response.data)
+            that.extractData(response.data)
           })
           .catch(function (error) {
             console.log(error)

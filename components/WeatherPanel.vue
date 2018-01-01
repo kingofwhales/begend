@@ -31,7 +31,8 @@
         temp: 0,
         summary: 'n/a',
         hourly: 0,
-        daily: 0
+        daily: 0,
+        city: 'n/a'
       }
     },
     methods: {
@@ -40,6 +41,7 @@
         this.summary = data.currently.summary
         this.hourly = data.hourly.data.slice(1, 25)
         this.daily = data.daily.data
+        this.city = data.timezone
       }
     },
     computed: {

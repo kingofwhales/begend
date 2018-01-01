@@ -2,8 +2,8 @@
   <section class="container">
     <div>
       <h1>Begend</h1>
-      <weather-panel></weather-panel>
       <air-quality></air-quality>
+      <weather-panel></weather-panel>
     </div>
   </section>
 </template>
