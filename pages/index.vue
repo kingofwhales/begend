@@ -4,6 +4,8 @@
       <h1>Begend</h1>
       <air-quality></air-quality>
       <weather-panel></weather-panel>
+      <reddit-hot></reddit-hot>
+      <twitter-home></twitter-home>
     </div>
   </section>
 </template>
@@ -11,12 +13,16 @@
 <script>
 import WeatherPanel from '../components/WeatherPanel.vue'
 import AirQuality from '../components/AirQuality.vue'
+import RedditHot from '../components/RedditHot.vue'
+import TwitterHome from '../components/TwitterHome.vue'
 
 export default {
   name: 'index',
   components: {
     WeatherPanel,
-    AirQuality
+    AirQuality,
+    RedditHot,
+    TwitterHome
   },
   methods: {
     getLocation () {
