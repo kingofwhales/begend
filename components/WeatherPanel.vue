@@ -6,7 +6,7 @@
       <ul>
         Hourly:
         <li v-for="hour in hours">
-          {{ hour.temp }} at {{hour.time}}
+          {{ hour.temp }} at {{hour.time}} with {{hour.summary}}
         </li>
       </ul>
       <ul>
@@ -31,6 +31,7 @@
         temp: 0,
         summary: 'n/a',
         hourly: 0,
+        hourlySummary: 'n/a',
         daily: 0,
         city: 'n/a'
       }
@@ -54,6 +55,7 @@
           let time = new Date(hour.time * 1000)
           let clock = time.getHours()
           newHour.time = clock
+          newHour.summary = hour.summary
           newHour.temp = hour.temperature
           return newHour
         })
