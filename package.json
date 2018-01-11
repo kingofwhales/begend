@@ -16,6 +16,8 @@
     "axios": "^0.17.1",
     "dotenv": "^4.0.0",
     "nuxt": "^1.0.0-rc11",
+    "postcss": "^6.0.16",
+    "postcss-import": "^11.0.0",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

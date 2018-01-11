@@ -1,20 +1,20 @@
 <template>
   <div>
     <div v-if='temp'>
-      <p>temperature: {{temp}}</p>
-      <p>summary: {{summary}}</p>
-      <ul>
-        Hourly:
-        <li v-for="hour in hours">
-          {{ hour.temp }} at {{hour.time}} with {{hour.summary}}
-        </li>
-      </ul>
-      <ul>
-        Daily:
-        <li v-for="day in days">
-          {{ day.temp }} at {{day.time}} with {{day.summary}}
-        </li>
-      </ul>
+      <p class='text'>temperature: {{temp}}</p>
+      <p class='text'>summary: {{summary}}</p>
+      <p class='title'>hourly: </p>
+      <div class='scroller'>
+        <div class='item' v-for="(value, key, index) in hours" :key='index'>
+          {{ value.temp }} <br> at {{value.time}} <br> {{value.summary}}
+        </div>
+      </div>
+      <p class='title'>daily:</p>
+      <div class='scroller'>
+        <div class='item' v-for="(value, key, index) in days" :key='index'>
+          {{ value.temp }} <br> at {{value.time}} <br> {{value.summary}}
+        </div>
+      </div>
 
     </div>
     <div v-else>loading.....</div>
@@ -92,5 +92,22 @@
 <style scoped>
   .text {
     color:black;
+    text-align:left;
+  }
+  .scroller {
+    width:100%;
+    overflow-x:scroll;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .item {
+    flex-basis:42%;
+    margin-right:20px;
+    flex-grow:0;
+    flex-shrink:0;
+  }
+  .title {
+    margin-top:20px;
   }
 </style>

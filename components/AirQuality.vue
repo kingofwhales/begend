@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if='pm25'>
-      <p>pm2.5: {{pm25}}</p>
+      <p class='text'>pm2.5: {{pm25}}</p>
     </div>
     <div v-else>loading.....</div>
   </div>
@@ -47,5 +47,6 @@
 <style scoped>
   .text {
     color:black;
+    text-align:left;
   }
 </style>

@@ -26,6 +26,11 @@ module.exports = {
     ** Run ESLint on save
     */
     vendor: ['axios'],
+    build: {
+      postcss: [
+        require('postcss-import')()
+      ]
+    },
     extend (config, ctx) {
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({

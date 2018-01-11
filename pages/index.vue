@@ -1,17 +1,21 @@
 <template>
   <section class="container">
     <div>
-      <h1>Begend</h1>
-      <div>
-        <span @click="currentView='daily-environment'">daily Env</span>
-        <span @click="currentView='reddit-hot'">reddit</span>
-        <span @click="currentView='twitter-home'">twitter</span>
-      </div>
-      <transition name="root-fade" mode='out-in'>
-        <keep-alive>
-          <component :is="currentView"></component>
-        </keep-alive>
-      </transition>
+      <header class='header'>
+        <h1 class='title'>Begend</h1>
+        <nav class='nav'>
+          <span @click="currentView='daily-environment'">daily Env</span>
+          <span @click="currentView='reddit-hot'">reddit</span>
+          <span @click="currentView='twitter-home'">twitter</span>
+        </nav>
+      </header>
+      <main class='wrapper'>
+        <transition name="root-fade" mode='out-in'>
+          <keep-alive>
+            <component :is="currentView"></component>
+          </keep-alive>
+        </transition>
+      </main>
     </div>
   </section>
 </template>
@@ -57,10 +61,27 @@ export default {
 </script>
 
 <style>
+@import '../assets/css/global.css';
+
+.wrapper {
+  padding-left:20px;
+  padding-right:20px;
+}
+.header {
+  background-color:aliceblue;
+  padding: 10px 10px 16px 10px;
+}
+.title {
+  margin-bottom:10px;
+}
 .container {
   min-height: 100vh;
   text-align: center;
-  padding-top:20px;
+}
+.nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .root-fade-enter-active, .root-fade-leave-active {
   transition: opacity .5s;
