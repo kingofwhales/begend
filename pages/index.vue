@@ -2,25 +2,34 @@
   <section class="container">
     <div>
       <h1>Begend</h1>
-      <air-quality></air-quality>
-      <weather-panel></weather-panel>
-      <reddit-hot></reddit-hot>
-      <twitter-home></twitter-home>
+      <div>
+        <span @click="currentView='daily-environment'">daily Env</span>
+        <span @click="currentView='reddit-hot'">reddit</span>
+        <span @click="currentView='twitter-home'">twitter</span>
+      </div>
+      <transition name="root-fade" mode='out-in'>
+        <keep-alive>
+          <component :is="currentView"></component>
+        </keep-alive>
+      </transition>
     </div>
   </section>
 </template>
 
 <script>
-import WeatherPanel from '../components/WeatherPanel.vue'
-import AirQuality from '../components/AirQuality.vue'
+import DailyEnvironment from '../components/DailyEnvironment.vue'
 import RedditHot from '../components/RedditHot.vue'
 import TwitterHome from '../components/TwitterHome.vue'
 
 export default {
   name: 'index',
+  data () {
+    return {
+      currentView: 'daily-environment'
+    }
+  },
   components: {
-    WeatherPanel,
-    AirQuality,
+    DailyEnvironment,
     RedditHot,
     TwitterHome
   },
@@ -52,5 +61,11 @@ export default {
   min-height: 100vh;
   text-align: center;
   padding-top:20px;
+}
+.root-fade-enter-active, .root-fade-leave-active {
+  transition: opacity .5s;
+}
+.root-fade-enter, .root-fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
