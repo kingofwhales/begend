@@ -69,10 +69,16 @@ export default {
 .wrapper {
   padding-left:20px;
   padding-right:20px;
+  z-index:9;
 }
 .header {
   background-color:aliceblue;
   padding: 10px 10px 16px 10px;
+  position:fixed;
+  top:0;
+  left: 0;
+  right:0;
+  z-index:10;
 }
 .title {
   margin-bottom:10px;
@@ -81,6 +87,8 @@ export default {
   min-height: 100vh;
   text-align: center;
   overflow-x:hidden;
+  position:relative;
+  padding-top:78px;
 }
 .nav {
   display: flex;
