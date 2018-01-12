@@ -1,34 +1,60 @@
 <template>
-    <div>
+    <div class='homepage'>
+      <a @click="toggleRead">go to post</a>
       <a @click='getListings(false)'>get more</a>
       <ul id="example-1">
-        <li class='item' v-for="(value, key, index) in listings" :key="index">
-          <img :src="value.thumbnail" alt="list image" class='thumbnail'>
-          <div class='info'>
-            <a class='title' target='_blank' rel='noopener' :href="value.link">{{value.title}}</a>
-            <p class='comments'>
-              {{value.num_comments}}
-            </p>
+        <li v-for="(item, index) in listings" :key="index">
+          <div class='item'>
+            <img @click="togglePreview(index)" :src="item.thumbnail" alt="list image" class='thumbnail'>
+            <div class='info'>
+              <a class='title' target='_blank' rel='noopener' :href="item.link">{{item.title}}</a>
+              <p class='comments'>
+                {{item.num_comments}}
+              </p>
+            </div>
           </div>
-
+          <img v-if="ifPreviewOn(index)" class='preview' :src="item.preview" alt="image preview">
         </li>
       </ul>
+      <transition name="post-slide">
+        <reddit-post v-if='read' :toggleRead='toggleRead'></reddit-post>
+      </transition>
     </div>
 </template>
 
 <script>
   import axios from 'axios'
+
   import pig from '../assets/image/pig.jpg'
+  import pigPreview from '../assets/image/pig_preview.jpg'
+
+  import RedditPost from './RedditPost.vue'
 
   export default {
     name: 'RedditHot',
     data () {
       return {
         listings: [],
-        anchor: ''
+        anchor: '',
+        previewShown: [],
+        read: false
       }
     },
     methods: {
+      toggleRead () {
+        this.read = !this.read
+      },
+      togglePreview (index) {
+        let location = this.previewShown.indexOf(index)
+        if (location > -1) {
+          this.previewShown.splice(location, 1)
+        } else {
+          this.previewShown.push(index)
+        }
+      },
+      ifPreviewOn (index) {
+        return this.previewShown.indexOf(index) > -1
+      },
       getListings (firstTime) {
         let that = this
         axios.get('https://ciqfzfdgt5.execute-api.us-east-1.amazonaws.com/dev/reddit', {
@@ -62,7 +88,11 @@
             newItem.thumbnail = pig
           }
           newItem.num_comments = element.num_comments
-          newItem.preview = element.preview || undefined
+          if (element.preview) {
+            newItem.preview = element.preview.images[0].source.url
+          } else {
+            newItem.preview = pigPreview
+          }
           return newItem
         })
       }
@@ -70,11 +100,17 @@
     created () {
       // first time -- true
       this.getListings(true)
+    },
+    components: {
+      RedditPost
     }
   }
 </script>
 
 <style scoped>
+  .homepage {
+    position: relative;
+  }
   .item {
     padding-top:10px;
     padding-bottom:10px;
@@ -108,5 +144,17 @@
   }
   .info {
     flex-grow:1;
+  }
+  .preview {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .post-slide-enter-active, .post-slide-leave-active {
+    transition: 0.5s;
+  }
+  .post-slide-enter, .post-slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    transform: translateX(100%);
   }
 </style>

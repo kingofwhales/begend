@@ -1,5 +1,5 @@
 <template>
-  <div class='wrapper'>
+  <div>
       <air-quality></air-quality>
       <weather-panel></weather-panel>
   </div>
@@ -19,7 +19,5 @@
 </script>
 
 <style scoped>
-  .wrapper {
-    padding:10px 10px;
-  }
+
 </style>

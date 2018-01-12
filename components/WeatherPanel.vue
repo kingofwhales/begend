@@ -5,14 +5,14 @@
       <p class='text'>summary: {{summary}}</p>
       <p class='title'>hourly: </p>
       <div class='scroller'>
-        <div class='item' v-for="(value, key, index) in hours" :key='index'>
-          {{ value.temp }} <br> at {{value.time}} <br> {{value.summary}}
+        <div class='item' v-for="(item, index) in hours" :key='index'>
+          {{ item.temp }} <br> at {{item.time}} <br> {{item.summary}}
         </div>
       </div>
       <p class='title'>daily:</p>
       <div class='scroller'>
-        <div class='item' v-for="(value, key, index) in days" :key='index'>
-          {{ value.temp }} <br> at {{value.time}} <br> {{value.summary}}
+        <div class='item' v-for="(item, index) in days" :key='index'>
+          {{ item.temp }} <br> at {{item.time}} <br> {{item.summary}}
         </div>
       </div>
 

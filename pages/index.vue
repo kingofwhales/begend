@@ -4,9 +4,9 @@
       <header class='header'>
         <h1 class='title'>Begend</h1>
         <nav class='nav'>
-          <span @click="currentView='daily-environment'">daily Env</span>
-          <span @click="currentView='reddit-hot'">reddit</span>
-          <span @click="currentView='twitter-home'">twitter</span>
+          <span @click="activateView('daily-environment')">daily Env</span>
+          <span @click="activateView('reddit-hot')">reddit</span>
+          <span @click="activateView('twitter-home')">twitter</span>
         </nav>
       </header>
       <main class='wrapper'>
@@ -38,6 +38,9 @@ export default {
     TwitterHome
   },
   methods: {
+    activateView (view) {
+      this.currentView = view
+    },
     getLocation () {
       if (navigator.geolocation) {
         let that = this
