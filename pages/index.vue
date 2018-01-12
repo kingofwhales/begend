@@ -80,6 +80,7 @@ export default {
 .container {
   min-height: 100vh;
   text-align: center;
+  overflow-x:hidden;
 }
 .nav {
   display: flex;

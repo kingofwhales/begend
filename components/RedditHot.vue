@@ -1,21 +1,22 @@
 <template>
     <div class='homepage'>
-      <a @click="toggleRead">go to post</a>
-      <a @click='getListings(false)'>get more</a>
-      <ul id="example-1">
-        <li v-for="(item, index) in listings" :key="index">
-          <div class='item'>
-            <img @click="togglePreview(index)" :src="item.thumbnail" alt="list image" class='thumbnail'>
-            <div class='info'>
-              <a class='title' target='_blank' rel='noopener' :href="item.link">{{item.title}}</a>
-              <p class='comments'>
-                {{item.num_comments}}
-              </p>
+      <div class='home' v-bind:class="{reading: read}">
+        <a @click='getListings(false)'>get more</a>
+        <ul id="example-1">
+          <li v-for="(item, index) in listings" :key="index">
+            <div class='item'>
+              <img @click="togglePreview(index)" :src="item.thumbnail" alt="list image" class='thumbnail'>
+              <div class='info'>
+                <a class='title' target='_blank' rel='noopener' @click='toggleRead'>{{item.title}}</a>
+                <p class='comments'>
+                  {{item.num_comments}}
+                </p>
+              </div>
             </div>
-          </div>
-          <img v-if="ifPreviewOn(index)" class='preview' :src="item.preview" alt="image preview">
-        </li>
-      </ul>
+            <img v-if="ifPreviewOn(index)" class='preview' :src="item.preview" alt="image preview">
+          </li>
+        </ul>
+      </div>
       <transition name="post-slide">
         <reddit-post v-if='read' :toggleRead='toggleRead'></reddit-post>
       </transition>
@@ -156,5 +157,13 @@
   }
   .post-slide-enter, .post-slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
     transform: translateX(100%);
+  }
+  .home {
+    filter:grayscale(0%);
+    transition: transform 0.3s;
+  }
+  .home.reading {
+    filter: grayscale(40%);
+    transform: scale(0.99);
   }
 </style>
