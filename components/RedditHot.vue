@@ -17,8 +17,14 @@
           </li>
         </ul>
       </div>
-      <transition name="post-slide">
-        <reddit-post v-if='read' :toggleRead='toggleRead'></reddit-post>
+      <transition
+        name="post-slide"
+        v-on:before-enter="beforeSlideEnter"
+        v-on:before-leave="beforeSlideLeave"
+      >
+        <!-- <div v-show='read' class='test'> -->
+          <reddit-post :toggleRead='toggleRead' v-if='read'></reddit-post>
+        <!-- </div> -->
       </transition>
     </div>
 </template>
@@ -38,10 +44,19 @@
         listings: [],
         anchor: '',
         previewShown: [],
-        read: false
+        read: false,
+        scrollTop: 0
       }
     },
     methods: {
+      beforeSlideEnter (el) {
+        // console.log('--before slide scroll pos---')
+        // console.log(scrollTop)
+      },
+      beforeSlideLeave (el) {
+        console.log('---just scrolled---')
+        // window.scrollTo(0, 500)
+      },
       toggleRead () {
         this.read = !this.read
       },
@@ -110,7 +125,7 @@
 
 <style scoped>
   .homepage {
-    position: relative;
+    /* position: relative; */
   }
   .item {
     padding-top:10px;
@@ -135,6 +150,16 @@
     border:1px solid lightblue;
     border-width:0px 0px 1px 0px;
   }
+  .test {
+    background-color:red;
+    opacity:0.4;
+    width:100%;
+    left:0px;
+    height:100%;
+    position: fixed;
+    top:66px;
+    overflow:auto;
+  }
   .comments {
     text-align: right;
     background-image:url(../assets/image/chat.svg);
@@ -153,17 +178,26 @@
     transform: translateX(-50%);
   }
   .post-slide-enter-active, .post-slide-leave-active {
-    transition: 0.5s;
+    transition: transform 1s;
   }
   .post-slide-enter, .post-slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
     transform: translateX(100%);
   }
   .home {
     filter:grayscale(0%);
-    transition: transform 0.3s;
+    transition: transform 0.3s linear,
+                filter 0.3s linear;
   }
   .home.reading {
     filter: grayscale(40%);
     transform: scale(0.99);
+  }
+  .back {
+    position: fixed;
+    bottom:10px;
+    right: 10px;
+    background-color:#ed3332;
+    width:60px;
+    height:60px;
   }
 </style>

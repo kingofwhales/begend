@@ -69,7 +69,8 @@ export default {
 .wrapper {
   padding-left:20px;
   padding-right:20px;
-  z-index:9;
+  position: relative;
+  padding-top:78px;
 }
 .header {
   background-color:aliceblue;
@@ -88,7 +89,7 @@ export default {
   text-align: center;
   overflow-x:hidden;
   position:relative;
-  padding-top:78px;
+  /* padding-top:78px; */
 }
 .nav {
   display: flex;
