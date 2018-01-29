@@ -17,14 +17,15 @@
           </li>
         </ul>
       </div>
+      <button class='back' v-bind:class="{reading: read}" @click='toggleRead'>
+        Back
+      </button>
       <transition
         name="post-slide"
         v-on:before-enter="beforeSlideEnter"
         v-on:before-leave="beforeSlideLeave"
       >
-        <!-- <div v-show='read' class='test'> -->
-          <reddit-post :toggleRead='toggleRead' v-if='read'></reddit-post>
-        <!-- </div> -->
+        <reddit-post :toggleRead='toggleRead' v-if='read'></reddit-post>
       </transition>
     </div>
 </template>
@@ -199,5 +200,22 @@
     background-color:#ed3332;
     width:60px;
     height:60px;
+  }
+
+  .back {
+    position: fixed;
+    bottom: 20px;
+    right:20px;
+    background-color:red;
+    width:40px;
+    height:40px;
+    opacity:0;
+    z-index:3;
+    border-radius:50%;
+    transition:opacity 1s linear;
+  }
+
+  .back.reading {
+    opacity:1;
   }
 </style>

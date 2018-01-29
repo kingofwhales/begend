@@ -1,57 +1,58 @@
 <template>
-  <div class='post'>
-    <button @click='toggleRead'>back</button>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>post component</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-    <h1>xxx what</h1>
-  </div>
+  <section class='post'>
+    <main>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>post component</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+      <h1>xxx what</h1>
+    </main>
+  </section>
 </template>
 
 <script>
@@ -77,6 +78,6 @@
     background-color:white;
   }
   h1 {
-    font-size:30px;
+    font-size:50px;
   }
 </style>
