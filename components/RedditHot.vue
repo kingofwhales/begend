@@ -7,7 +7,7 @@
             <div class='item'>
               <img @click="togglePreview(index)" :src="item.thumbnail" alt="list image" class='thumbnail'>
               <div class='info'>
-                <a class='title' target='_blank' rel='noopener' @click='toggleRead'>{{item.title}}</a>
+                <a class='title' target='_blank' rel='noopener' @click="toggleRead(item.id)">{{item.title}}</a>
                 <p class='comments'>
                   {{item.num_comments}}
                 </p>
@@ -17,7 +17,7 @@
           </li>
         </ul>
       </div>
-      <button class='back' v-bind:class="{reading: read}" @click='toggleRead'>
+      <button class='back' v-bind:class="{reading: read}" @click="toggleRead('back')">
         Back
       </button>
       <transition
@@ -25,7 +25,7 @@
         v-on:before-enter="beforeSlideEnter"
         v-on:before-leave="beforeSlideLeave"
       >
-        <reddit-post :toggleRead='toggleRead' v-if='read'></reddit-post>
+        <reddit-post :toggleRead='toggleRead' :activePost='activePost' v-if='read'></reddit-post>
       </transition>
     </div>
 </template>
@@ -46,7 +46,8 @@
         anchor: '',
         previewShown: [],
         read: false,
-        scrollTop: 0
+        scrollTop: 0,
+        activePost: 0
       }
     },
     methods: {
@@ -58,8 +59,12 @@
         console.log('---just scrolled---')
         // window.scrollTo(0, 500)
       },
-      toggleRead () {
+      toggleRead (id, event) {
+        console.log(id)
         this.read = !this.read
+        if (id !== 'back') {
+          this.activePost = id
+        }
       },
       togglePreview (index) {
         let location = this.previewShown.indexOf(index)
@@ -80,6 +85,7 @@
           }
         })
           .then(function (response) {
+            console.log('---raw data---')
             console.log(response.data)
             let index = response.data.length - 1
             that.anchor = response.data[index].name
@@ -98,6 +104,7 @@
         return data.map(function (element, index) {
           let newItem = {}
           newItem.title = element.title
+          newItem.id = element.id
           newItem.link = `https://www.reddit.com/${element.permalink}`
           if (element.thumbnail.indexOf('http') > -1) {
             newItem.thumbnail = element.thumbnail
