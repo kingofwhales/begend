@@ -1,13 +1,12 @@
 <template>
     <div class='homepage'>
       <div class='home' v-bind:class="{reading: read}">
-        <a @click='getListings(false)'>get more</a>
         <ul id="example-1">
           <li v-for="(item, index) in listings" :key="index">
             <div class='item'>
               <img @click="togglePreview(index)" :src="item.thumbnail" alt="list image" class='thumbnail'>
               <div class='info'>
-                <a class='title' target='_blank' rel='noopener' @click="toggleRead(item.id)">{{item.title}}</a>
+                <a class='title' target='_blank' rel='noopener' @click="toggleRead(item)">{{item.title}}</a>
                 <p class='comments'>
                   {{item.num_comments}}
                 </p>
@@ -47,7 +46,7 @@
         previewShown: [],
         read: false,
         scrollTop: 0,
-        activePost: 0
+        activePost: {}
       }
     },
     methods: {
@@ -59,11 +58,10 @@
         console.log('---just scrolled---')
         // window.scrollTo(0, 500)
       },
-      toggleRead (id, event) {
-        console.log(id)
+      toggleRead (activeItem, event) {
         this.read = !this.read
-        if (id !== 'back') {
-          this.activePost = id
+        if (activeItem !== 'back') {
+          this.activePost = activeItem
         }
       },
       togglePreview (index) {
@@ -105,6 +103,9 @@
           let newItem = {}
           newItem.title = element.title
           newItem.id = element.id
+          newItem.sub = element.subreddit
+          newItem.author = element.author
+          newItem.extLink = element.url
           newItem.link = `https://www.reddit.com/${element.permalink}`
           if (element.thumbnail.indexOf('http') > -1) {
             newItem.thumbnail = element.thumbnail
@@ -141,7 +142,7 @@
   }
   .thumbnail {
     width:60px;
-    height:60px;
+    height:auto;
     flex-shrink:0;
   }
   .title {
