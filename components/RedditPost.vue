@@ -19,13 +19,33 @@
       </div>
       <div class='comments'>
         <ul v-if='comments'>
-          <li v-for="(comment, index) in comments" :key="index">
-            <p>
+          <li class='comment' v-for="(comment, index) in comments" :key="index">
+            <div class='secondary_info'>
+              <a :href="'https://www.reddit.com/user/' + comment.author" target='_blank' rel='noopener' class='comment_main_username'>
+                u/{{comment.author}}
+              </a>
+              <a class='score' :href="activePost.link" target='_blank' rel='noopener'>
+                <img class='upvote' src="../assets/image/banana.svg" alt="give you one banana for upvotes!">
+                {{comment.score}}
+              </a>
+            </div>
+            <p class='comment_main'>
               {{comment.body}}
             </p>
-            <p v-if="comment.replies[0]">
-              {{comment.replies[0].body}}
-            </p>
+            <div v-if="comment.replies[0]" class='comment_reply'>
+              <div class='secondary_info'>
+                <a class='comment_main_username' :href="'https://www.reddit.com/user/' + comment.replies[0].author" target='_blank' rel='noopener'>
+                  u/{{comment.replies[0].author}}
+                </a>
+                <a class='score' :href="activePost.link" target='_blank' rel='noopener'>
+                  <img class='upvote' src="../assets/image/banana.svg" alt="give you one banana for upvotes!">
+                  {{comment.replies[0].score}}
+                </a>
+              </div>
+              <p class='main_info'>
+                {{comment.replies[0].body}}
+              </p>
+            </div>
           </li>
         </ul>
       </div>
@@ -78,8 +98,15 @@
           .then(function (response) {
             console.log('comments data')
             console.log(response.data)
-            that.comments = response.data.comments
-            // that.comments = that.extractData(response.data.comments)
+            that.comments = response.data.comments.sort((a, b) => {
+              if (a.score > b.score) {
+                return -1
+              } else if (a.score < b.score) {
+                return 1
+              } else {
+                return 0
+              }
+            })
           })
           .catch(function (error) {
             console.log(error)
@@ -101,7 +128,7 @@
 
 <style scoped>
   .txt {
-    font-size:14px;
+    font-size:13px;
     color:#0079d3;
     text-decoration: none;
   }
@@ -125,7 +152,7 @@
   }
   .title {
     text-align: left;
-    font-size: 18px;
+    font-size: 16px;
     color:#a5a4a4;
     display: block;
     text-decoration: none;
@@ -142,6 +169,34 @@
   .comments {
     background-color:rgba(211, 211, 211, 0.1);
     width:100%;
-    height:1000px;
+    height:auto;
+  }
+  .comment {
+    border:1px solid grey;
+    border-width:0px 0px 0px 0px;
+    margin-bottom:20px;
+  }
+  .comment_main, .comment_reply {
+    text-align:left;
+    font-size:13px;
+  }
+  .comment_main {
+    margin-bottom:0.6em;
+  }
+  .comment_reply {
+    padding-left:2em;
+  }
+  .secondary_info {
+    display: flex;
+    justify-content: space-between;
+  }
+  .comment_main_username, .score {
+    color:#aaa;
+    text-decoration: none;
+    font-size:13px;
+  }
+  .upvote {
+    width:14px;
+    height:14px;
   }
 </style>
