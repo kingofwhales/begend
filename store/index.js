@@ -1,4 +1,4 @@
-import Vuex from 'vuex'
+import Vuex from "vuex"
 
 const createStore = () => {
   return new Vuex.Store({
@@ -12,7 +12,7 @@ const createStore = () => {
       pos: state => state.pos
     },
     mutations: {
-      setPos (state, payload) {
+      setPos(state, payload) {
         state.pos.lat = payload.latitude
         state.pos.long = payload.longitude
       }
